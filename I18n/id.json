@@ -1,0 +1,10 @@
+{
+  "signInError": {
+    "email": "Email tidak boleh kosong",
+    "password": "Password tidak boleh kosong",
+    "auth/invalid-email": "Email tidak valid",
+    "auth/wrong-password": "Password tidak valid",
+    "auth/invalid-credential": "Email atau password tidak valid",
+    "userNotFound": "User tidak ditemukan"
+  }
+}

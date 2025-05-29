@@ -9,11 +9,11 @@ definePageMeta({
   ]
 })
 
-
 </script>
 
 <template>
   <div>
     <h1>Home</h1>
+    <NuxtLink to="/auth/sign-in">Sign in</NuxtLink>
   </div>
 </template>

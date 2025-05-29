@@ -3,11 +3,14 @@
 export default defineNuxtConfig({
   compatibilityDate: '2025-05-15',
   devtools: { enabled: true },
-  css: ['~/assets/scss/main.scss'],
+  css: ['~/assets/css/main.css'],
   modules: [
-    '@nuxtjs/tailwindcss',
     'nuxt-vuefire',
+    '@nuxt/ui'
   ],
+  ui: {
+    colorMode: false,
+  },
   vuefire: {
     auth: {
       enabled: true,

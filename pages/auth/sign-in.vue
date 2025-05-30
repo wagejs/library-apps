@@ -1,13 +1,29 @@
 <script setup lang="ts">
+import { object, string, nonempty, refine, type Infer } from 'superstruct';
+import type { FormSubmitEvent } from '@nuxt/ui'
+import { emailRegex } from '~/constant/field'
+
 const { signIn } = useAuth();
 
-const signInForm = ref({
+const signInSchema = object({
+  email: refine(string(), 'email', (value) => {
+    if (!emailRegex.test(value)) return 'Invalid email address'
+    return true;
+  }),
+  password: nonempty(string()),
+})
+
+type SignInSchema = Infer<typeof signInSchema>
+
+const signInForm = reactive<SignInSchema>({
   email: '',
   password: ''
 })
 
-async function userSignIn() {
-  const { email, password } = signInForm.value
+// NOTE: current version of @nuxt/ui doesn't support type inference for FormSubmitEvent
+// so it need to use unknown as the type for the event
+async function userSignIn(event: FormSubmitEvent<unknown>): Promise<void> {
+  const { email, password } = event.data as SignInSchema
   await signIn(email, password)
 }
 </script>
@@ -16,17 +32,17 @@ async function userSignIn() {
   <div class="flex flex-col justify-center items-center h-screen bg-gray-100">
     <h2 class="text-2xl font-bold mb-8">Sign in to your account</h2>
     <div class="flex flex-col gap-4 max-w-md w-full overflow-hidden shadow-lg mb-4 rounded-lg bg-white p-8">
-      <UForm :state="signInForm" class="space-y-4 w-full" @submit="userSignIn">
+      <UForm :state="signInForm" :schema="signInSchema" class="space-y-4 w-full" @submit="userSignIn">
         <UFormField label="Email" name="email" size="xl" required class="w-full" :ui="{
           label: 'text-md font-medium text-gray-700 mb-1',
         }">
-          <UInput v-model="signInForm.email" class="w-full" />
+          <UInput v-model="signInForm.email" class="w-full" @keyup.enter="userSignIn" />
         </UFormField>
 
         <UFormField label="Password" name="password" size="xl" required :ui="{
           label: 'text-md font-medium text-gray-700 mb-1'
         }">
-          <UInput v-model="signInForm.password" type="password" class="w-full"  />
+          <UInput v-model="signInForm.password" type="password" class="w-full" @keyup.enter="userSignIn" />
         </UFormField>
 
         <UButton type="submit" color="primary" size="xl" block label="Sign in" class="flex font-bold justify-center items-center mt-8 py-3">

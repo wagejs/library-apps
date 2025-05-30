@@ -1,13 +1,33 @@
 <script setup lang="ts">
+import { object, string, refine, type Infer } from 'superstruct';
+import type { FormSubmitEvent } from '@nuxt/ui'
+import { emailRegex, passwordRegex } from '~/constant/field'
+
 const { signUp } = useAuth()
 
-const signUpForm = ref({
+const signUpSchema = object({
+  email: refine(string(), 'email', (value) => {
+    if (!emailRegex.test(value)) return 'Invalid email address'
+    return true;
+  }),
+  password: refine(string(), 'password', (value) => {
+    if (!passwordRegex.test(value)) return `Password must contain at least 1 uppercase, 1 lowercase, 1 number, 1 special character.`;
+    if (value.length < 8) return 'Password must be at least 8 characters'
+    return true;
+  }),
+})
+
+type SignUpSchema = Infer<typeof signUpSchema>
+
+const signUpForm = reactive<SignUpSchema>({
   email: '',
   password: ''
 })
 
-async function signUpUser() {
-  const { email, password } = signUpForm.value
+// NOTE: current version of @nuxt/ui doesn't support type inference for FormSubmitEvent
+// so it need to use unknown as the type for the event
+async function signUpUser(event: FormSubmitEvent<unknown>): Promise<void> {
+  const { email, password } = event.data as SignUpSchema
   await signUp(email, password)
 }
 </script>
@@ -16,7 +36,7 @@ async function signUpUser() {
   <div class="flex flex-col justify-center items-center h-screen bg-gray-100">
     <h2 class="text-2xl font-bold mb-8">Register your account</h2>
     <div class="flex flex-col gap-4 max-w-md w-full overflow-hidden shadow-lg mb-4 rounded-lg bg-white p-8">
-      <UForm :state="signUpForm" class="space-y-4 w-full" @submit="signUpUser">
+      <UForm :state="signUpForm" :schema="signUpSchema" class="space-y-4 w-full" @submit="signUpUser">
         <UFormField label="Email" name="email" size="xl" required class="w-full" :ui="{
           label: 'text-md font-medium text-gray-700 mb-1',
         }">

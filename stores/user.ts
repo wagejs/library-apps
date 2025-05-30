@@ -4,7 +4,11 @@ import type { User } from "~/interfaces/user"
 export const useUserStore = defineStore('user', () => {
   const user = ref<User | null>(null)
 
-  return { user }
+  function $reset() {
+    user.value = null
+  }
+
+  return { user, $reset }
 }, {
   persist: {
     storage: piniaPluginPersistedstate.localStorage(),

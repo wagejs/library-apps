@@ -6,7 +6,11 @@ import {
 import { useFirebaseAuth } from "vuefire"
 import type { Auth, AuthError } from 'firebase/auth'
 import { useRouter } from "vue-router"
+import { storeToRefs } from "pinia"
+
 import langId from '~/i18n/id.json'
+import { useUserStore } from "~/stores/user"
+import type { User } from "~/interfaces/user"
 
 export const useAuth = () => {
   const auth = useFirebaseAuth()
@@ -14,10 +18,30 @@ export const useAuth = () => {
   const toast = useToast()
 
   const signIn = async (email: string, password: string) => {
-    await signInWithEmailAndPassword(auth as Auth, email, password).then(() => {
+    await signInWithEmailAndPassword(auth as Auth, email, password).then(({ user }) => {
+      const { email, displayName } = user
+      const username = displayName ?? email
+
+      // Set user to store
+      const userStore = storeToRefs(useUserStore())
+      userStore.user.value = {
+        uid: user.uid,
+        email: user.email ?? '',
+        displayName: user.displayName ?? '', 
+        photoURL: user.photoURL ?? '',
+        emailVerified: user.emailVerified ?? false,
+      } as User
+
+      // Show toast
+      toast.add({
+        title: 'Sign in successful',
+        description: 'Hi ' + username + '!',
+        color: 'success'
+      })
+
+      // Redirect to logged in page
       router.push('/auth/logged-in')
     }).catch((error: AuthError) => {
-      console.log(error.code)
       toast.add({
         title: 'Sign in failed',
         description: langId.signInError[error?.code as keyof typeof langId.signInError],

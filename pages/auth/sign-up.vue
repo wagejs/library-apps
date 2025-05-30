@@ -20,13 +20,13 @@ async function signUpUser() {
         <UFormField label="Email" name="email" size="xl" required class="w-full" :ui="{
           label: 'text-md font-medium text-gray-700 mb-1',
         }">
-          <UInput v-model="signUpForm.email" class="w-full" />
+          <UInput v-model="signUpForm.email" class="w-full" @keyup.enter="signUpUser" />
         </UFormField>
 
         <UFormField label="Password" name="password" size="xl" required :ui="{
           label: 'text-md font-medium text-gray-700 mb-1'
         }">
-          <UInput v-model="signUpForm.password" type="password" class="w-full"  />
+          <UInput v-model="signUpForm.password" type="password" class="w-full" @keyup.enter="signUpUser" />
         </UFormField>
 
         <UButton type="submit" color="primary" size="xl" block label="Sign up" class="flex font-bold justify-center items-center mt-8 py-3">

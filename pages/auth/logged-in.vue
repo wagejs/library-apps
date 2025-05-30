@@ -1,5 +1,9 @@
 <script setup lang="ts">
-const { signOut, user } = useAuth()
+import { storeToRefs } from "pinia"
+
+const { signOut } = useAuth()
+const userStore = useUserStore()
+const { user } = storeToRefs(userStore)
 </script>
 
 <template>
@@ -20,14 +24,9 @@ const { signOut, user } = useAuth()
             <td>Email Verified</td>
             <td>{{ user?.emailVerified }}</td>
           </tr>
-          <tr>
-            <td>Last Sign In Time</td>
-            <td>{{ user?.metadata?.lastSignInTime }}</td>
-          </tr>
-
         </tbody>
       </table>
-      <button class="bg-blue-500 text-white p-2 rounded-lg mt-4 mb-6 font-bold cursor-pointer" @click="signOut">Sign out</button>
+      <UButton size="xl" block color="primary" label="Sign out" @click="signOut" class="font-bold"/>
     </div>
   </div>
 </template>

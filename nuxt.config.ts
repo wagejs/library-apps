@@ -6,7 +6,8 @@ export default defineNuxtConfig({
   css: ['~/assets/css/main.css'],
   modules: [
     'nuxt-vuefire',
-    '@nuxt/ui'
+    '@nuxt/ui',
+    '@pinia/nuxt',
   ],
   ui: {
     colorMode: false,

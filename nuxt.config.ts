@@ -8,6 +8,7 @@ export default defineNuxtConfig({
     'nuxt-vuefire',
     '@nuxt/ui',
     '@pinia/nuxt',
+    'pinia-plugin-persistedstate/nuxt',
   ],
   ui: {
     colorMode: false,

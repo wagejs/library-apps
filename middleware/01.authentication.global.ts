@@ -1,4 +1,4 @@
-import { protectedRoutes, publicRoutes } from '@/constant/auth'
+import { protectedRoutes, publicRoutes } from '@constants/auth'
 
 export default defineNuxtRouteMiddleware((to, from) => {
   const userStore = useUserStore()

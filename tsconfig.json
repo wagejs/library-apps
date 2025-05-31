@@ -1,4 +1,19 @@
 {
   // https://nuxt.com/docs/guide/concepts/typescript
-  "extends": "./.nuxt/tsconfig.json"
+  "extends": "./.nuxt/tsconfig.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./*"],
+      "@pages/*": ["./pages/*"],
+      "@components/*": ["./components/*"],
+      "@utils/*": ["./utils/*"],
+      "@middleware/*": ["./middleware/*"],
+      "@constants/*": ["./constants/*"],
+      "@interfaces/*": ["./interfaces/*"],
+      "@types/*": ["./types/*"],
+      "@i18n/*": ["./i18n/*"],
+      "@stores/*": ["./stores/*"]
+    }
+  }
 }

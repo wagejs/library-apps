@@ -8,9 +8,9 @@ import type { Auth, AuthError, User as AuthUser } from 'firebase/auth'
 import { useRouter } from "vue-router"
 import { storeToRefs } from "pinia"
 
-import langId from '~/i18n/id.json'
-import { useUserStore } from "~/stores/user"
-import type { User } from "~/interfaces/user"
+import langId from "@i18n/id.json"
+import { useUserStore } from "@stores/user"
+import type { User } from "@interfaces/user"
 
 export const useAuth = () => {
   const auth = useFirebaseAuth()

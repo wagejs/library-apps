@@ -24,3 +24,10 @@ logs
 !.env.example
 
 service-account.json
+
+# Coverage
+coverage
+
+# yarn
+.yarn
+.yarnrc.yml

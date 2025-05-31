@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { object, string, refine, type Infer } from 'superstruct';
 import type { FormSubmitEvent } from '@nuxt/ui'
-import { emailRegex, passwordRegex } from '~/constant/field'
+import { emailRegex, passwordRegex } from '@constants/field'
 
 const { signUp } = useAuth()
 

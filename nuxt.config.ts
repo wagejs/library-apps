@@ -1,5 +1,6 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 import { visualizer } from 'rollup-plugin-visualizer'
+import { resolve } from 'path'
 
 export default defineNuxtConfig({
   runtimeConfig: {
@@ -13,6 +14,7 @@ export default defineNuxtConfig({
     '@nuxt/ui',
     '@pinia/nuxt',
     'pinia-plugin-persistedstate/nuxt',
+    '@nuxt/test-utils/module'
   ],
   ui: {
     colorMode: false,
@@ -48,4 +50,15 @@ export default defineNuxtConfig({
     },
     plugins: [visualizer({ open: true })],
   },
+  alias: {
+    '@pages': resolve(__dirname, 'pages'),
+    '@components': resolve(__dirname, 'components'),
+    '@utils': resolve(__dirname, 'utils'),
+    '@middleware': resolve(__dirname, 'middleware'),
+    '@constants': resolve(__dirname, 'constants'),
+    '@interfaces': resolve(__dirname, 'interfaces'),
+    '@types': resolve(__dirname, 'types'),
+    '@i18n': resolve(__dirname, 'i18n'),
+    '@stores': resolve(__dirname, 'stores')
+  }
 })

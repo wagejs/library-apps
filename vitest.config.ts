@@ -8,7 +8,8 @@ export default defineVitestConfig({
     environment: 'happy-dom',
     coverage: {
       reporter: ['text', 'html'],
-    }
+    },
+    setupFiles: ['./tests/vitest.setup.ts'],
   },
   resolve: {
     alias: {
@@ -20,7 +21,8 @@ export default defineVitestConfig({
       '@interfaces': path.resolve(__dirname, './interfaces'),
       '@types': path.resolve(__dirname, './types'),
       '@i18n': path.resolve(__dirname, './i18n'),
-      '@stores': path.resolve(__dirname, './stores')
+      '@stores': path.resolve(__dirname, './stores'),
+      '@mocks': path.resolve(__dirname, './tests/__mocks__'),
     },
   },
 })

@@ -1,8 +1,3 @@
-import { 
-  createUserWithEmailAndPassword, 
-  signInWithEmailAndPassword, 
-  signOut as signOutFirebase
-} from "firebase/auth"
 import { useFirebaseAuth } from "vuefire"
 import type { Auth, AuthError, User as AuthUser } from 'firebase/auth'
 import { useRouter } from "vue-router"
@@ -13,7 +8,8 @@ import { useUserStore } from "@stores/user"
 import type { User } from "@interfaces/user"
 
 export const useAuth = () => {
-  const auth = useFirebaseAuth()
+  const isTestEnv = process.env.NODE_ENV === 'test'
+  const auth = !isTestEnv ? useFirebaseAuth() : null
   const router = useRouter()
   const toast = useToast()
   const userStore = useUserStore()
@@ -31,6 +27,8 @@ export const useAuth = () => {
   }
 
   const signIn = async (email: string, password: string) => {
+    if (isTestEnv) return
+    const { signInWithEmailAndPassword } = await import('firebase/auth')
     await signInWithEmailAndPassword(auth as Auth, email, password).then(({ user }) => {
       const { email, displayName } = user
       const username = displayName ?? email
@@ -56,6 +54,8 @@ export const useAuth = () => {
   }
 
   const signUp = async (email: string, password: string, redirectTo: string = '/auth/logged-in') => {
+    if (isTestEnv) return
+    const { createUserWithEmailAndPassword } = await import('firebase/auth')
     await createUserWithEmailAndPassword(auth as Auth, email, password).then(({ user }) => {
       handleUserSetup(user);
 
@@ -78,6 +78,8 @@ export const useAuth = () => {
   }
 
   const signOut = async () => {
+    if (isTestEnv) return
+    const { signOut: signOutFirebase } = await import('firebase/auth')
     await signOutFirebase(auth as Auth).then(() => {
       userStore.$reset();
       router.push('/auth/sign-in')
@@ -94,5 +96,5 @@ export const useAuth = () => {
     })
   }
   
-  return { user: auth?.currentUser, signIn, signUp, signOut }
+  return { signIn, signUp, signOut }
 }

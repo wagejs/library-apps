@@ -1,19 +1,19 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`SignInPage > should render the sign in page 1`] = `
+exports[`SignInPage > should render the sign in page correctly 1`] = `
 "<div class="flex flex-col justify-center items-center h-screen bg-gray-100">
   <h2 class="text-2xl font-bold mb-8">Sign in to your account</h2>
   <div class="flex flex-col gap-4 max-w-md w-full overflow-hidden shadow-lg mb-4 rounded-lg bg-white p-8">
-    <form id="v-0-0-0" class="space-y-4 w-full">
+    <form id="sign-in-form" class="space-y-4 w-full">
       <div class="text-base w-full">
         <div class="">
-          <div class="flex content-center items-center justify-between"><label for="v-0-0-1" class="block after:content-['*'] after:ms-0.5 after:text-error text-md font-medium text-gray-700 mb-1">Email</label>
+          <div class="flex content-center items-center justify-between"><label for="email" class="block font-medium text-default after:content-['*'] after:ms-0.5 after:text-error"><label for="email" id="email-label" class="text-md font-medium text-gray-700 mb-1">Email</label></label>
             <!--v-if-->
           </div>
           <!--v-if-->
         </div>
         <div class="mt-1 relative">
-          <div class="relative inline-flex items-center w-full"><input id="v-0-0-1" type="text" name="email" class="w-full rounded-md border-0 placeholder:text-dimmed focus:outline-none disabled:cursor-not-allowed disabled:opacity-75 transition-colors px-3 py-2 text-base gap-2 text-highlighted bg-default ring ring-inset ring-accented focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-primary" autocomplete="off" aria-describedby="" aria-invalid="false" value="">
+          <div class="relative inline-flex items-center w-full"><input id="email" type="text" name="email" class="w-full rounded-md border-0 placeholder:text-dimmed focus:outline-none disabled:cursor-not-allowed disabled:opacity-75 transition-colors px-3 py-2 text-base gap-2 text-highlighted bg-default ring ring-inset ring-accented focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-primary" autocomplete="off" aria-describedby="" aria-invalid="false" value="">
             <!--v-if-->
             <!--v-if-->
           </div>
@@ -22,19 +22,19 @@ exports[`SignInPage > should render the sign in page 1`] = `
       </div>
       <div class="text-base">
         <div class="">
-          <div class="flex content-center items-center justify-between"><label for="v-0-0-2" class="block after:content-['*'] after:ms-0.5 after:text-error text-md font-medium text-gray-700 mb-1">Password</label>
+          <div class="flex content-center items-center justify-between"><label for="password" class="block font-medium text-default after:content-['*'] after:ms-0.5 after:text-error"><label for="password" id="password-label" class="text-md font-medium text-gray-700 mb-1">Password</label></label>
             <!--v-if-->
           </div>
           <!--v-if-->
         </div>
         <div class="mt-1 relative">
-          <div class="relative inline-flex items-center w-full"><input id="v-0-0-2" type="password" name="password" class="w-full rounded-md border-0 placeholder:text-dimmed focus:outline-none disabled:cursor-not-allowed disabled:opacity-75 transition-colors px-3 py-2 text-base gap-2 text-highlighted bg-default ring ring-inset ring-accented focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-primary" autocomplete="off" aria-describedby="" aria-invalid="false" value="">
+          <div class="relative inline-flex items-center w-full"><input id="password" type="password" name="password" class="w-full rounded-md border-0 placeholder:text-dimmed focus:outline-none disabled:cursor-not-allowed disabled:opacity-75 transition-colors px-3 py-2 text-base gap-2 text-highlighted bg-default ring ring-inset ring-accented focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-primary" autocomplete="off" aria-describedby="" aria-invalid="false" value="">
             <!--v-if-->
             <!--v-if-->
           </div>
           <!--v-if-->
         </div>
-      </div><button type="submit" class="rounded-md disabled:cursor-not-allowed aria-disabled:cursor-not-allowed disabled:opacity-75 aria-disabled:opacity-75 transition-colors px-3 text-base gap-2 w-full text-inverted bg-primary hover:bg-primary/75 disabled:bg-primary aria-disabled:bg-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary flex font-bold justify-center items-center mt-8 py-3">
+      </div><button type="submit" id="sign-in-button" class="rounded-md disabled:cursor-not-allowed aria-disabled:cursor-not-allowed disabled:opacity-75 aria-disabled:opacity-75 transition-colors px-3 text-base gap-2 w-full text-inverted bg-primary hover:bg-primary/75 disabled:bg-primary aria-disabled:bg-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary flex font-bold justify-center items-center mt-8 py-3">
         <!--v-if--><span class="truncate">Sign in</span><span class="iconify i-heroicons:arrow-right-circle" aria-hidden="true" style="font-size: 20px;"></span>
       </button>
     </form>

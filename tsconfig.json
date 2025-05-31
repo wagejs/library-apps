@@ -13,7 +13,8 @@
       "@interfaces/*": ["./interfaces/*"],
       "@types/*": ["./types/*"],
       "@i18n/*": ["./i18n/*"],
-      "@stores/*": ["./stores/*"]
+      "@stores/*": ["./stores/*"],
+      "@mocks/*": ["./tests/__mocks__/*"]
     }
   }
 }

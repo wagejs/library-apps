@@ -21,7 +21,7 @@ export default defineNuxtConfig({
   },
   vuefire: {
     auth: {
-      enabled: true,
+      enabled: process.env.NODE_ENV !== 'test',
     },
     config: {
       apiKey: "AIzaSyCBjJLjNPW3aB_LqiQbv9wnMxcXrNsaKvI",
@@ -59,6 +59,7 @@ export default defineNuxtConfig({
     '@interfaces': resolve(__dirname, 'interfaces'),
     '@types': resolve(__dirname, 'types'),
     '@i18n': resolve(__dirname, 'i18n'),
-    '@stores': resolve(__dirname, 'stores')
+    '@stores': resolve(__dirname, 'stores'),
+    '@mocks': resolve(__dirname, 'tests/__mocks__')
   }
 })

@@ -33,21 +33,21 @@ async function userSignIn(event: FormSubmitEvent<unknown>): Promise<void> {
     <h2 class="text-2xl font-bold mb-8">Sign in to your account</h2>
     <div class="flex flex-col gap-4 max-w-md w-full overflow-hidden shadow-lg mb-4 rounded-lg bg-white p-8">
       <UForm :state="signInForm" :schema="signInSchema" id="sign-in-form" class="space-y-4 w-full" @submit="userSignIn">
-        <UFormField name="email" size="xl" required class="w-full">
+        <UFormField name="email" id="email-wrapper" class="w-full" size="xl" required>
           <template #label>
-            <label for="email" id="email-label" class="text-md font-medium text-gray-700 mb-1">Email</label>
+            <label for="email" class="text-md font-medium text-gray-700 mb-1">Email</label>
           </template>
-          <UInput id="email" v-model="signInForm.email" class="w-full" @keyup.enter="userSignIn" />
+          <UInput v-model="signInForm.email" class="w-full" id="email" />
         </UFormField>
 
-        <UFormField name="password" size="xl" required>
+        <UFormField name="password" id="password-wrapper" class="w-full" size="xl" required>
           <template #label>
-            <label for="password" id="password-label" class="text-md font-medium text-gray-700 mb-1">Password</label>
+            <label for="password" class="text-md font-medium text-gray-700 mb-1">Password</label>
           </template>
-          <UInput id="password" v-model="signInForm.password" type="password" class="w-full" @keyup.enter="userSignIn" />
+          <UInput v-model="signInForm.password" type="password" class="w-full" id="password" />
         </UFormField>
 
-        <UButton type="submit" id="sign-in-button" color="primary" size="xl" block label="Sign in" class="flex font-bold justify-center items-center mt-8 py-3">
+        <UButton type="submit" color="primary" size="xl" block label="Sign in" class="flex font-bold justify-center items-center mt-8">
           <template #trailing>
             <UIcon name="i-heroicons-arrow-right-circle" size="20"/>
           </template>

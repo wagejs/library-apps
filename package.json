@@ -4,11 +4,11 @@
   "type": "module",
   "scripts": {
     "build": "nuxt build",
-    "dev": "nuxt dev",
+    "dev": "cross-env NODE_ENV=development nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
-    "test": "vitest -u"
+    "test": "cross-env NODE_ENV=test vitest -u"
   },
   "dependencies": {
     "@firebase/app-types": "^0.9.3",
@@ -30,6 +30,7 @@
   "devDependencies": {
     "@nuxt/test-utils": "^3.19.1",
     "@vue/test-utils": "^2.4.6",
+    "cross-env": "^7.0.3",
     "happy-dom": "^17.5.6",
     "playwright-core": "^1.52.0",
     "rollup-plugin-visualizer": "^6.0.1",

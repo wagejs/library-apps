@@ -3,9 +3,9 @@ import { visualizer } from 'rollup-plugin-visualizer'
 import { resolve } from 'path'
 
 export default defineNuxtConfig({
-  runtimeConfig: {
-    GOOGLE_APPLICATION_CREDENTIALS: process.env.GOOGLE_APPLICATION_CREDENTIALS,
-  },
+  // runtimeConfig: {
+  //   GOOGLE_APPLICATION_CREDENTIALS: process.env.GOOGLE_APPLICATION_CREDENTIALS,
+  // },
   compatibilityDate: '2025-05-15',
   devtools: { enabled: true },
   css: ['~/assets/css/main.css'],

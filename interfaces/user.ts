@@ -1,4 +1,4 @@
-import type { isUserVerified } from "~/types/user";
+import type { isUserVerified} from "@/types/user";
 
 interface User {
   uid: string;
@@ -8,6 +8,12 @@ interface User {
   emailVerified: isUserVerified;
 }
 
-export type {
-  User
+interface UserAuthAttemptCounter {
+  signIn: number;
+  signUp: number;
 }
+
+export type {
+  User,
+  UserAuthAttemptCounter
+}   

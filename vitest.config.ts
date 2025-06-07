@@ -13,6 +13,7 @@ export default defineVitestConfig({
   },
   resolve: {
     alias: {
+      '@': path.resolve(__dirname, '.'),
       '@pages': path.resolve(__dirname, './pages'),
       '@contants': path.resolve(__dirname, './constants'),
       '@composables': path.resolve(__dirname, './composables'),
@@ -20,7 +21,6 @@ export default defineVitestConfig({
       '@utils': path.resolve(__dirname, './utils'),
       '@middleware': path.resolve(__dirname, './middleware'),
       '@interfaces': path.resolve(__dirname, './interfaces'),
-      '@types': path.resolve(__dirname, './types'),
       '@i18n': path.resolve(__dirname, './i18n'),
       '@stores': path.resolve(__dirname, './stores'),
       '@mocks': path.resolve(__dirname, './specs/__mocks__'),

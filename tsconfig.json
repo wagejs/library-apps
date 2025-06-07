@@ -12,7 +12,6 @@
       "@middleware/*": ["./middleware/*"],
       "@constants/*": ["./constants/*"],
       "@interfaces/*": ["./interfaces/*"],
-      "@types/*": ["./types/*"],
       "@i18n/*": ["./i18n/*"],
       "@stores/*": ["./stores/*"],
       "@mocks/*": ["specs/__mocks__/*"]

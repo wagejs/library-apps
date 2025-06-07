@@ -5,19 +5,21 @@ import { storeToRefs } from "pinia"
 
 import langId from "@i18n/id.json"
 import { useUserStore } from "@stores/user"
-import type { User } from "@interfaces/user"
+import type { User, UserAuthAttemptCounter } from "@interfaces/user"
 
 export const useAuth = () => {
   const auth = useFirebaseAuth()
   const router = useRouter()
   const toast = useToast()
   const userStore = useUserStore()
+  const { user: userStoreUser, authAttempt: userStoreAuthAttempt } = storeToRefs(userStore)
+  const { setAuthAttempt: setAuthAttemptStore, resetAuthAttempt: resetAuthAttemptStore } = userStore
+  const maxAuthAttempt = Number(process.env.MAX_AUTH_ATTEMPT) ?? 3
   type authErrorKey = keyof typeof langId.authError
 
   function handleUserSetup(user: AuthUser) {
     // Set user to store
-    const userStoreRef = storeToRefs(userStore)
-    userStoreRef.user.value = {
+    userStoreUser.value = {
       uid: user.uid ?? 'invalid-uid',
       email: user.email ?? '',
       displayName: user.displayName ?? '',
@@ -27,12 +29,32 @@ export const useAuth = () => {
   }
 
   const signIn = async (email: string, password: string) => {
+
+    // Validate auth attempt
+    if (userStoreAuthAttempt.value.signIn >= maxAuthAttempt) {
+      toast.add({
+        id: 'toast-sign-in-failed-max-attempt',
+        title: 'Too many attempts',
+        description: 'You have reached the maximum number of sign in attempts. Please try again later.',
+        color: 'error'
+      })
+      return
+    }
+
     const { signInWithEmailAndPassword } = await import('firebase/auth')
+
+    // Set auth attempt to store
+    setAuthAttemptStore('signIn')
+
     await signInWithEmailAndPassword(auth as Auth, email, password).then(({ user }) => {
       const { email, displayName } = user
       const username = displayName ?? email
 
+      // Set user to store
       handleUserSetup(user);
+
+      // Reset auth attempt to store
+      resetAuthAttemptStore()
 
       // Show toast
       toast.add({
@@ -48,16 +70,36 @@ export const useAuth = () => {
       toast.add({
         id: 'toast-sign-in-failed',
         title: 'Sign in failed',
-        description: langId.authError[error?.code as authErrorKey],
+        description: langId.authError[error?.code as authErrorKey] ?? error?.message,
         color: 'error'
       })
     })
   }
 
   const signUp = async (email: string, password: string, redirectTo: string = '/auth/logged-in') => {
+
+    // Validate auth attempt
+    if (userStoreAuthAttempt.value.signUp >= maxAuthAttempt) {
+      toast.add({
+        id: 'toast-sign-up-failed-max-attempt',
+        title: 'Too many attempts',
+        description: 'You have reached the maximum number of sign up attempts. Please try again later.',
+        color: 'error'
+      })
+      return
+    }
+
     const { createUserWithEmailAndPassword } = await import('firebase/auth')
+
+    // Set auth attempt to store  
+    setAuthAttemptStore('signUp')
+
     await createUserWithEmailAndPassword(auth as Auth, email, password).then(({ user }) => {
+      // Set user to store
       handleUserSetup(user);
+
+      // Reset auth attempt to store
+      resetAuthAttemptStore()
 
       // Show toast
       toast.add({

@@ -3,9 +3,9 @@ import { visualizer } from 'rollup-plugin-visualizer'
 import { resolve } from 'path'
 
 export default defineNuxtConfig({
-  // runtimeConfig: {
-  //   GOOGLE_APPLICATION_CREDENTIALS: process.env.GOOGLE_APPLICATION_CREDENTIALS,
-  // },
+  runtimeConfig: {
+    GOOGLE_APPLICATION_CREDENTIALS: process.env.GOOGLE_APPLICATION_CREDENTIALS,
+  },
   compatibilityDate: '2025-05-15',
   devtools: { enabled: true },
   css: ['~/assets/css/main.css'],
@@ -51,6 +51,7 @@ export default defineNuxtConfig({
     plugins: [visualizer({ open: true })],
   },
   alias: {
+    '@': resolve(__dirname, '.'),
     '@pages': resolve(__dirname, 'pages'),
     '@components': resolve(__dirname, 'components'),
     '@composables': resolve(__dirname, 'composables'),
@@ -58,7 +59,6 @@ export default defineNuxtConfig({
     '@middleware': resolve(__dirname, 'middleware'),
     '@constants': resolve(__dirname, 'constants'),
     '@interfaces': resolve(__dirname, 'interfaces'),
-    '@types': resolve(__dirname, 'types'),
     '@i18n': resolve(__dirname, 'i18n'),
     '@stores': resolve(__dirname, 'stores'),
     '@mocks': resolve(__dirname, 'specs/__mocks__')

@@ -1,3 +1,4 @@
+import '@mocks/composables/useAuth.mock'
 import { describe, test, expect, beforeEach } from 'vitest'
 import { mountSuspended } from '@nuxt/test-utils/runtime'
 import { flushPromises } from '@vue/test-utils'

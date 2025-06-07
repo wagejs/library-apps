@@ -53,6 +53,7 @@ export default defineNuxtConfig({
   alias: {
     '@pages': resolve(__dirname, 'pages'),
     '@components': resolve(__dirname, 'components'),
+    '@composables': resolve(__dirname, 'composables'),
     '@utils': resolve(__dirname, 'utils'),
     '@middleware': resolve(__dirname, 'middleware'),
     '@constants': resolve(__dirname, 'constants'),
@@ -60,6 +61,6 @@ export default defineNuxtConfig({
     '@types': resolve(__dirname, 'types'),
     '@i18n': resolve(__dirname, 'i18n'),
     '@stores': resolve(__dirname, 'stores'),
-    '@mocks': resolve(__dirname, 'tests/__mocks__')
+    '@mocks': resolve(__dirname, 'specs/__mocks__')
   }
 })

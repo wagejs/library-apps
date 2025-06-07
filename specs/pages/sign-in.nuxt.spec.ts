@@ -1,9 +1,13 @@
-import { describe, test, expect, vi } from 'vitest'
+import { describe, test, expect, beforeEach } from 'vitest'
 import { mountSuspended } from '@nuxt/test-utils/runtime'
-import SignInPage from '@pages/auth/sign-in.vue'
 import { flushPromises } from '@vue/test-utils'
+import { signInMock } from '@mocks/composables/useAuth.mock'
+import SignInPage from '@pages/auth/sign-in.vue'
 
-describe('SignInPage E2E', () => {
+describe('SignInPage', () => {
+  beforeEach(() => {
+    signInMock.mockReset()
+  })
   describe('Form Validation', () => {
     test('should validate email format', async () => {
       const wrapper = await mountSuspended(SignInPage)
@@ -52,7 +56,6 @@ describe('SignInPage E2E', () => {
     })
 
     test('should validate complete form submission', async () => {
-      const mockSignIn = vi.fn()
       const wrapper = await mountSuspended(SignInPage)
       
       // Get form elements
@@ -71,7 +74,8 @@ describe('SignInPage E2E', () => {
       expect(wrapper.find('#password-wrapper .text-error').exists()).toBe(false)
 
       // Verify sign in was called with correct credentials
-      // expect(mockSignIn).toHaveBeenCalledWith('test@example.com', 'password123')
+      expect(signInMock).toHaveBeenCalledTimes(1)
+      expect(signInMock).toHaveBeenCalledWith('test@example.com', 'password123')
     })
   })
 }) 

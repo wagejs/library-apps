@@ -6,6 +6,7 @@
     "paths": {
       "@/*": ["./*"],
       "@pages/*": ["./pages/*"],
+      "@composables/*": ["./composables/*"],
       "@components/*": ["./components/*"],
       "@utils/*": ["./utils/*"],
       "@middleware/*": ["./middleware/*"],
@@ -14,7 +15,7 @@
       "@types/*": ["./types/*"],
       "@i18n/*": ["./i18n/*"],
       "@stores/*": ["./stores/*"],
-      "@mocks/*": ["./tests/__mocks__/*"]
+      "@mocks/*": ["specs/__mocks__/*"]
     }
   }
 }

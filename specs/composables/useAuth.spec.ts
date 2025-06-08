@@ -9,14 +9,18 @@ import {
 } from '@mocks/firebase/auth.mock'
 
 const userMockRef = {
-  user: {
-    value: {
-      uid: '123',
-      email: 'test@test.com',
-      displayName: 'Test User',
-      photoURL: 'https://example.com/photo.jpg',
-      emailVerified: false
-    }
+  value: {
+    uid: '123',
+    email: 'test@test.com',
+    displayName: 'Test User',
+    photoURL: 'https://example.com/photo.jpg',
+    emailVerified: false
+  }
+}
+const authAttemptMockRef = {
+  value: {
+    signIn: 0,
+    signUp: 0
   }
 }
 
@@ -36,7 +40,13 @@ const useUserStoreResetMock = vi.fn()
 vi.mock('@stores/user', () => ({
   useUserStore: () => ({
     user: {},
-    $reset: useUserStoreResetMock
+    authAttempt: {
+      signIn: 0,
+      signUp: 0
+    },
+    $reset: useUserStoreResetMock,
+    setAuthAttempt: vi.fn(),
+    resetAuthAttempt: vi.fn()
   })
 }))
 
@@ -62,7 +72,10 @@ describe('useAuth', () => {
         }
       })
     })
-    storeToRefsMock.mockReturnValue(userMockRef)
+    storeToRefsMock.mockReturnValue({
+      user: userMockRef,
+      authAttempt: authAttemptMockRef
+    })
 
     const { signIn } = useAuth()
     await signIn('test@test.com', 'password')
@@ -83,10 +96,10 @@ describe('useAuth', () => {
 
     // User setup correctly called
     expect(storeToRefs).toHaveBeenCalledWith(expect.anything())
-    expect(storeToRefs(expect.anything() as any)).toEqual(userMockRef)
+    expect(storeToRefs(expect.anything() as any).user.value).toEqual(userMockRef.value)
   })
 
-  test('signIn failed', async () => {
+  test('signIn failed with invalid credential', async () => {
     signInWithEmailAndPasswordMock.mockImplementationOnce(() => {
       return Promise.reject({
         code: 'auth/invalid-credential'
@@ -110,16 +123,48 @@ describe('useAuth', () => {
     // Redirect not called
     expect(routerPushMock).not.toHaveBeenCalled()
   })
+
+  test('signIn failed with max attempt', async () => {
+    storeToRefsMock.mockReturnValue({
+      user: userMockRef,
+      authAttempt: {
+        value: {
+          ...authAttemptMockRef.value,
+          signIn: 3
+        }
+      }
+    })
+    
+    const { signIn } = useAuth()
+    await signIn('test@test.com', 'password')
+    
+    // Firebase auth not called
+    expect(signInWithEmailAndPasswordMock).not.toHaveBeenCalled()
+    
+    // Toast correctly called
+    expect(toastAddMock).toHaveBeenCalledWith({
+      id: 'toast-sign-in-failed-max-attempt',
+      title: 'Too many attempts',
+      description: 'You have reached the maximum number of sign in attempts. Please try again later.',
+      color: 'error'
+    })
+    
+    // Redirect not called
+    expect(routerPushMock).not.toHaveBeenCalled()
+  })
  })
 
   describe('signUp', () => {
     test('signUp success', async () => {
       createUserWithEmailAndPasswordMock.mockImplementationOnce(() => {
         return Promise.resolve({
-          user: userMockRef.user.value
+          user: userMockRef.value
         })
       })
-      storeToRefsMock.mockReturnValue(userMockRef)
+      storeToRefsMock.mockReturnValue({
+        user: userMockRef,
+        authAttempt: authAttemptMockRef
+      })
 
       const { signUp } = useAuth()
       await signUp('test@test.com', 'password')
@@ -140,10 +185,10 @@ describe('useAuth', () => {
 
       // User setup correctly called
       expect(storeToRefs).toHaveBeenCalledWith(expect.anything())
-      expect(storeToRefs(expect.anything() as any)).toEqual(userMockRef)
+      expect(storeToRefs(expect.anything() as any).user.value).toEqual(userMockRef.value)
     })
 
-    test('signUp failed', async () => {
+    test('signUp failed with email already in use', async () => {
       createUserWithEmailAndPasswordMock.mockImplementationOnce(() => {
         return Promise.reject({
           code: 'auth/email-already-in-use'
@@ -163,6 +208,35 @@ describe('useAuth', () => {
         description: 'Email sudah terdaftar',
         color: 'error'
       })
+    })
+
+    test('signUp failed with max attempt', async () => {
+      storeToRefsMock.mockReturnValue({
+        user: userMockRef,
+        authAttempt: {
+          value: {
+            ...authAttemptMockRef.value,
+            signUp: 3
+          }
+        }
+      })
+      
+      const { signUp } = useAuth()
+      await signUp('test@test.com', 'password')
+      
+      // Firebase auth not called
+      expect(createUserWithEmailAndPasswordMock).not.toHaveBeenCalled()
+      
+      // Toast correctly called
+      expect(toastAddMock).toHaveBeenCalledWith({
+        id: 'toast-sign-up-failed-max-attempt',
+        title: 'Too many attempts',
+        description: 'You have reached the maximum number of sign up attempts. Please try again later.',
+        color: 'error'
+      })
+      
+      // Redirect not called
+      expect(routerPushMock).not.toHaveBeenCalled()
     })
   })
 

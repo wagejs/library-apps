@@ -5,7 +5,7 @@ import { storeToRefs } from "pinia"
 
 import langId from "@i18n/id.json"
 import { useUserStore } from "@stores/user"
-import type { User, UserAuthAttemptCounter } from "@interfaces/user"
+import type { User } from "@interfaces/user"
 
 export const useAuth = () => {
   const auth = useFirebaseAuth()
@@ -14,7 +14,7 @@ export const useAuth = () => {
   const userStore = useUserStore()
   const { user: userStoreUser, authAttempt: userStoreAuthAttempt } = storeToRefs(userStore)
   const { setAuthAttempt: setAuthAttemptStore, resetAuthAttempt: resetAuthAttemptStore } = userStore
-  const maxAuthAttempt = Number(process.env.MAX_AUTH_ATTEMPT) ?? 3
+  const maxAuthAttempt = Number(process.env.MAX_AUTH_ATTEMPT) || 3
   type authErrorKey = keyof typeof langId.authError
 
   function handleUserSetup(user: AuthUser) {

@@ -1,4 +1,4 @@
-export const useError = () => {
+export const useErrors = () => {
   // TODO: Implement error handling
   /**
    * 1. Error Translation (i18n)

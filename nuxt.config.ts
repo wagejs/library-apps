@@ -8,13 +8,28 @@ export default defineNuxtConfig({
   },
   compatibilityDate: '2025-05-15',
   devtools: { enabled: true },
+  alias: {
+    '@': resolve(__dirname, '.'),
+    '@pages': resolve(__dirname, 'pages'),
+    '@components': resolve(__dirname, 'components'),
+    '@composables': resolve(__dirname, 'composables'),
+    '@utils': resolve(__dirname, 'utils'),
+    '@middleware': resolve(__dirname, 'middleware'),
+    '@constants': resolve(__dirname, 'constants'),
+    '@interfaces': resolve(__dirname, 'interfaces'),
+    '@i18n': resolve(__dirname, 'i18n'),
+    '@stores': resolve(__dirname, 'stores'),
+    '@mocks': resolve(__dirname, 'specs/__mocks__'),
+    '@locales': resolve(__dirname, 'i18n/locales')
+  },
   css: ['~/assets/css/main.css'],
   modules: [
     'nuxt-vuefire',
     '@nuxt/ui',
     '@pinia/nuxt',
     'pinia-plugin-persistedstate/nuxt',
-    '@nuxt/test-utils/module'
+    '@nuxt/test-utils/module',
+    '@nuxtjs/i18n'
   ],
   ui: {
     colorMode: false,
@@ -50,17 +65,13 @@ export default defineNuxtConfig({
     },
     plugins: [visualizer({ open: true })],
   },
-  alias: {
-    '@': resolve(__dirname, '.'),
-    '@pages': resolve(__dirname, 'pages'),
-    '@components': resolve(__dirname, 'components'),
-    '@composables': resolve(__dirname, 'composables'),
-    '@utils': resolve(__dirname, 'utils'),
-    '@middleware': resolve(__dirname, 'middleware'),
-    '@constants': resolve(__dirname, 'constants'),
-    '@interfaces': resolve(__dirname, 'interfaces'),
-    '@i18n': resolve(__dirname, 'i18n'),
-    '@stores': resolve(__dirname, 'stores'),
-    '@mocks': resolve(__dirname, 'specs/__mocks__')
-  }
+  i18n: {
+    defaultLocale: 'en',
+    langDir: 'generated',
+    locales: [
+      { code: 'en', name: 'English', file: 'en.json' },
+      { code: 'id', name: 'Indonesia', file: 'id.json' }
+    ],
+    strategy: 'prefix_except_default',
+  },
 })

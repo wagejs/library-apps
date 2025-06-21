@@ -4,7 +4,7 @@
   "type": "module",
   "scripts": {
     "build": "nuxt build",
-    "dev": "cross-env NODE_ENV=development nuxt dev",
+    "dev": "cross-env NODE_ENV=development node scripts/merge-i18n.js && nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
@@ -14,6 +14,7 @@
     "@firebase/app-types": "^0.9.3",
     "@nuxt/kit": "^3.17.5",
     "@nuxt/ui": "^3.1.3",
+    "@nuxtjs/i18n": "9.5.5",
     "@pinia/nuxt": "^0.11.0",
     "firebase": "^11.8.1",
     "firebase-admin": "^13.4.0",

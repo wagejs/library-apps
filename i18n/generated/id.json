@@ -1,0 +1,35 @@
+{
+  "auth": {
+    "signIn": "Masuk",
+    "email": "Email",
+    "password": "Password",
+    "signUp": "Daftar",
+    "signInTitle": "Masuk ke akun Anda",
+    "signUpTitle": "Buat akun",
+    "dontHaveAccount": "Belum punya akun?",
+    "haveAccount": "Sudah punya akun?",
+    "signUpLink": "Daftar",
+    "signInLink": "Masuk",
+    "errors": {
+      "email": "Email tidak boleh kosong",
+      "password": "Password tidak boleh kosong",
+      "auth/invalid-email": "Email tidak valid",
+      "auth/wrong-password": "Password tidak valid",
+      "auth/invalid-credential": "Email atau password tidak valid",
+      "userNotFound": "User tidak ditemukan",
+      "auth/email-already-in-use": "Email sudah terdaftar"
+    }
+  },
+  "common": {
+    "submit": "Kirim",
+    "cancel": "Batal",
+    "save": "Simpan",
+    "delete": "Hapus",
+    "edit": "Ubah",
+    "view": "Lihat",
+    "search": "Cari",
+    "filter": "Filter",
+    "apply": "Terapkan",
+    "reset": "Reset"
+  }
+}

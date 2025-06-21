@@ -3,7 +3,6 @@ import type { Auth, AuthError, User as AuthUser } from 'firebase/auth'
 import { useRouter } from "vue-router"
 import { storeToRefs } from "pinia"
 
-import langId from "@i18n/id.json"
 import { useUserStore } from "@stores/user"
 import type { User } from "@interfaces/user"
 
@@ -12,10 +11,10 @@ export const useAuth = () => {
   const router = useRouter()
   const toast = useToast()
   const userStore = useUserStore()
+  const { t } = useI18n()
   const { user: userStoreUser, authAttempt: userStoreAuthAttempt } = storeToRefs(userStore)
   const { setAuthAttempt: setAuthAttemptStore, resetAuthAttempt: resetAuthAttemptStore } = userStore
   const maxAuthAttempt = Number(process.env.MAX_AUTH_ATTEMPT) || 3
-  type authErrorKey = keyof typeof langId.authError
 
   function handleUserSetup(user: AuthUser) {
     // Set user to store
@@ -70,7 +69,7 @@ export const useAuth = () => {
       toast.add({
         id: 'toast-sign-in-failed',
         title: 'Sign in failed',
-        description: langId.authError[error?.code as authErrorKey] ?? error?.message,
+        description: t('auth.errors.' + error?.code) ?? error?.message,
         color: 'error'
       })
     })
@@ -115,7 +114,7 @@ export const useAuth = () => {
       toast.add({
         id: 'toast-sign-up-failed',
         title: 'Sign up failed',
-        description: langId.authError[error?.code as authErrorKey],
+        description: t('auth.errors.' + error?.code) ?? error?.message,
         color: 'error'
       })
     })

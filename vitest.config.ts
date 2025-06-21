@@ -24,6 +24,7 @@ export default defineVitestConfig({
       '@i18n': path.resolve(__dirname, './i18n'),
       '@stores': path.resolve(__dirname, './stores'),
       '@mocks': path.resolve(__dirname, './specs/__mocks__'),
+      '@locales': path.resolve(__dirname, './i18n/locales')
     },
   },
 })

@@ -14,7 +14,8 @@
       "@interfaces/*": ["./interfaces/*"],
       "@i18n/*": ["./i18n/*"],
       "@stores/*": ["./stores/*"],
-      "@mocks/*": ["specs/__mocks__/*"]
+      "@mocks/*": ["specs/__mocks__/*"],
+      "@locales/*": ["./i18n/locales/*"]
     }
   }
 }

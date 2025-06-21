@@ -31,3 +31,6 @@ coverage
 # yarn
 .yarn
 .yarnrc.yml
+
+# i18n
+i18n/generated
